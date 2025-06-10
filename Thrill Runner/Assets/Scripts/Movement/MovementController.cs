@@ -12,7 +12,7 @@ namespace ThrillRunner.Movement
         // ---Inspector Settings---
         [Header("Settings")]
         [SerializeField] private MonoBehaviour defaultMovementLogic; // Must implement IMovement
-        [SerializeField] private float rotationSpeed = 0.5f; // Controls how fast the character turns.
+        [SerializeField] private float rotationSpeed = 500f; // Controls how fast the character turns.
         [SerializeField] private Transform cameraTransform; // Used to align movement direction with camera.
 
         // ---Internal References & State--- 
@@ -63,8 +63,9 @@ namespace ThrillRunner.Movement
         private void ApplyRotation() {
             float horizontal = input.x;
 
+            float rotationAmount = horizontal * rotationSpeed * Time.deltaTime;
             // Apply physical rotation.
-            transform.Rotate(0f, horizontal * rotationSpeed, 0f, Space.World);
+            transform.Rotate(0f, rotationAmount, 0f, Space.World);
 
             // Trigger turn animations when direction changes.
             if (horizontal > 0.1f && lastHorizontalInput <= 0.1f)
@@ -90,7 +91,7 @@ namespace ThrillRunner.Movement
         /// Switches the currently active movement logic at runtime.
         /// Must exist on the same GameObject.
         /// </summary>
-        /// <typeparam name="T">A MonoBehaviour that implements IMovement.</typeparam>
+        /// <typeparam name="T">A MonoBeh</typeparam>
         public void SwitchMovement<T>() where T : MonoBehaviour, IMovement {
             IMovement newMovement = GetComponent<T>();
             if (newMovement != null)
