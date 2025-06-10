@@ -12,7 +12,7 @@ namespace ThrillRunner.Movement
         // ---Inspector Settings---
         [Header("Settings")]
         [SerializeField] private MonoBehaviour defaultMovementLogic; // Must implement IMovement
-        [SerializeField] private float rotationSpeed = 500f; // Controls how fast the character turns.
+        [SerializeField] private float rotationSpeed = 120f; // Controls how fast the character turns.
         [SerializeField] private Transform cameraTransform; // Used to align movement direction with camera.
 
         // ---Internal References & State--- 
