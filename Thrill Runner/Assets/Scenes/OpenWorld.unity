@@ -396,7 +396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultMovementLogic: {fileID: 499741987}
-  rotationSpeed: 0.15
+  rotationSpeed: 100
   cameraTransform: {fileID: 1034515985}
 --- !u!114 &499741989
 MonoBehaviour:
