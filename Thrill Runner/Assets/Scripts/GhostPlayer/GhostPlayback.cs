@@ -3,26 +3,30 @@ using UnityEngine;
 
 namespace ThrillRunner.GhostPlayer
 {
+    /// <summary>
+    /// Replays a recorded sequence of ghost frames by updating position and rotation each frame.
+    /// </summary>
     public class GhostPlayback : MonoBehaviour
     {
+        // List of recorded ghost frames to play back.
         private List<GhostFrame> frames;
+
+        // Index of current frame being played.
         private int currentFrame = 0;
 
-        public float playbackSpeed = 1f;
-        private float timer = 0f;
-
-        private Animator animator;
-
-        void Awake() {
-            animator = GetComponent<Animator>();
-        }
-
+        /// <summary>
+        /// Starts playback from the beginning of the provided list of ghost frames.
+        /// </summary>
+        /// <param name="recordedFrames">The sequence of recorded player frames to replay.</param>
         public void Play(List<GhostFrame> recordedFrames) {
             frames = recordedFrames;
             currentFrame = 0;
-            timer = 0f;
         }
 
+        /// <summary>
+        /// Replays the ghost by setting the transform to match each recorded frame, one per update.
+        /// Stops automatically at the end of the frame list.
+        /// </summary>
         private void Update() {
             if (frames == null || currentFrame >= frames.Count)
                 return;
@@ -31,14 +35,6 @@ namespace ThrillRunner.GhostPlayer
 
             transform.position = frame.position;
             transform.rotation = frame.rotation;
-
-            animator.SetFloat("MoveSpeed", frame.moveSpeed);
-            animator.SetBool("IsSprinting", frame.isSprinting);
-            animator.SetBool("WalksBackwards", frame.walksBackwards);
-
-            Debug.Log(frame.moveSpeed);
-            Debug.Log(frame.isSprinting);
-            Debug.Log(frame.walksBackwards);
 
             currentFrame++;
         }

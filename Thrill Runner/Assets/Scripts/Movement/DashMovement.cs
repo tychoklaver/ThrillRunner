@@ -2,6 +2,10 @@ using UnityEngine;
 
 namespace ThrillRunner.Movement
 {
+    /// <summary>
+    /// Handles Dash Movement using a CharacterController.
+    /// Dash is performed in the camera's forward direction when the player presses Space.
+    /// </summary>
     [RequireComponent(typeof(CharacterController))]
     public class DashMovement : MonoBehaviour, IMovement
     {
@@ -21,7 +25,6 @@ namespace ThrillRunner.Movement
         private Vector3 dashDirection; // Direction in which dash is performed.
 
         void Awake() {
-            // Cache references at startup for performance.
             controller = GetComponent<CharacterController>();
             cameraTransform = Camera.main.transform;
         }
@@ -33,19 +36,12 @@ namespace ThrillRunner.Movement
         /// <param name="input">Horizontal and vertical movement input from the player.</param>
         /// <param name="isSprinting">Whether the player is holding sprint.</param>
         public Vector3 Move(Vector2 input, bool isSprinting) {
-            // Count down the cooldown timer each frame.
             cooldownTimer -= Time.deltaTime;
 
-            // If dash is available and the dash key is pressed, initiate dash.
             if (!isDashing && Input.GetKeyDown(KeyCode.Space) && cooldownTimer <= 0f) 
                 StartDash();
 
-            // If currently dashing, continue moving.
-            if (isDashing) 
-                return ContinueDash();
-
-            // Otherwise, no movement from this system.
-            return Vector3.zero;
+            return isDashing ? ContinueDash() : Vector3.zero;
         }
 
         /// <summary>
@@ -53,7 +49,6 @@ namespace ThrillRunner.Movement
         /// Resets timers and sets dash state.
         /// </summary>
         void StartDash() {
-            // Flatten camera forward vector and normalize it.
             dashDirection = new Vector3(cameraTransform.forward.x, 0f, cameraTransform.forward.z).normalized;
             isDashing = true;
             dashTimer = dashDuration;
@@ -65,13 +60,11 @@ namespace ThrillRunner.Movement
         /// </summary>
         /// <returns>The movement vector applied during dash.</returns>
         Vector3 ContinueDash() {
-            // Count down dash duration.
             dashTimer -= Time.deltaTime;
 
-            // Calculate dash velocity and move using CharacterController.
-            controller.Move(dashDirection * (dashDistance / dashDuration) * Time.deltaTime);
+            Vector3 velocity = dashDirection * (dashDistance / dashDuration);
+            controller.Move(velocity * Time.deltaTime);
 
-            // Stop dash once time runs out.
             if (dashTimer <= 0f)
                 isDashing = false;
 

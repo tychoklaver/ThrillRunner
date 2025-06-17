@@ -3,61 +3,55 @@ using UnityEngine.SceneManagement;
 
 namespace ThrillRunner.UI
 {
+    /// <summary>
+    /// Controls Main Menu UI interactions, including starting the game,
+    /// showing the tutorial panel and exiting the application.
+    /// </summary>
     public class MainMenuController : MonoBehaviour
     {
-        [SerializeField] private GameObject gameModeSelectionPanel;
-        [SerializeField] private GameObject settingsPanel;
-        [SerializeField] private GameObject controlsOverviewPanel;
+        [SerializeField] private GameObject tutorialPanel;
 
         private const int LEVEL_SCENE_INDEX = 1;
-        private const int OPEN_WORLD_INDEX = 2;
 
+        /// <summary>
+        /// Initializes the menu by hiding the tutorial panel at startup.
+        /// </summary>
         void Awake() {
-            // Ensure all sub-panels are disabled at startup.
-            gameModeSelectionPanel?.SetActive(false);
-            settingsPanel?.SetActive(false);
-            controlsOverviewPanel?.SetActive(false);
+            tutorialPanel?.SetActive(false);
         }
 
+        /// <summary>
+        /// Loads the main game scene when the Play button is pressed.
+        /// </summary>
         public void OnPlayButtonPressed() {
-            gameModeSelectionPanel?.SetActive(true);
+            SceneManager.LoadScene(LEVEL_SCENE_INDEX);
         }
 
-        public void OnSettingsButtonPressed() {
-            settingsPanel?.SetActive(true);
+        /// <summary>
+        /// Shows the tutorial panel when the Tutorial button is pressed.
+        /// </summary>
+        public void OnTutorialButtonPressed() {
+            tutorialPanel?.SetActive(true);
         }
 
-        public void OnControlsButtonPressed() {
-            controlsOverviewPanel?.SetActive(true);
-        }
-
+        /// <summary>
+        /// Handles game exit requests.
+        /// Logs the request and quits the application.
+        /// Stops play mode if running inside the Unity Editor.
+        /// </summary>
         public void OnExitButtonPressed() {
             Debug.Log("Exit Game requested.");
             Application.Quit();
     #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false; // Stops play in Unity Editor.
+            UnityEditor.EditorApplication.isPlaying = false;
     #endif
         }
 
-        public void OpenWorldSelected() {
-            SceneManager.LoadScene(OPEN_WORLD_INDEX);
-        }
-
-        /// Loads the level scene.
-        public void LevelModeSelected() {
-            SceneManager.LoadScene(LEVEL_SCENE_INDEX);
-        }
-
-        public void CloseGameModeSelection() {
-            gameModeSelectionPanel?.SetActive(false);
-        }
-
-        public void CloseSettingsPanel() {
-            settingsPanel?.SetActive(false);
-        }
-
-        public void CloseControlsPanel() {
-            controlsOverviewPanel?.SetActive(false);
+        /// <summary>
+        /// Closes/hides the tutorial panel.
+        /// </summary>
+        public void CloseTutorialPanel() {
+            tutorialPanel?.SetActive(false);
         }
     }
 }

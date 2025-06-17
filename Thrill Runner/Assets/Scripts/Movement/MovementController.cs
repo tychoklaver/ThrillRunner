@@ -64,16 +64,13 @@ namespace ThrillRunner.Movement
             float horizontal = input.x;
 
             float rotationAmount = horizontal * rotationSpeed * Time.deltaTime;
-            // Apply physical rotation.
             transform.Rotate(0f, rotationAmount, 0f, Space.World);
 
-            // Trigger turn animations when direction changes.
             if (horizontal > 0.1f && lastHorizontalInput <= 0.1f)
                 animator.SetTrigger("TurnRight");
             else if (horizontal < -0.1f && lastHorizontalInput >= -0.1f)
                 animator.SetTrigger("TurnLeft");
 
-            // IsRotating = true while actively turning.
             animator.SetBool("IsRotating", Mathf.Abs(horizontal) > 0f);
             lastHorizontalInput = horizontal;
         }

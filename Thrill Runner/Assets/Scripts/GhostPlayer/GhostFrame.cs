@@ -2,21 +2,30 @@ using UnityEngine;
 
 namespace ThrillRunner.GhostPlayer
 {
+    /// <summary>
+    /// Represents a snapshot of player's movement and orientation at a specific moment.
+    /// Used to record and replay ghost runs.
+    /// </summary>
     [System.Serializable]
     public struct GhostFrame
     {
+        /// <summary>
+        /// World position of the player at this frame.
+        /// </summary>
         public Vector3 position;
-        public Quaternion rotation;
-        public float moveSpeed;
-        public bool isSprinting;
-        public bool walksBackwards;
 
-        public GhostFrame(Transform t, float speed, bool sprinting, bool backwards) {
+        /// <summary>
+        /// World rotation of the player at this frame.
+        /// </summary>
+        public Quaternion rotation;
+
+        /// <summary>
+        /// Constructs a new frame from the given transform.
+        /// </summary>
+        /// <param name="t">Transform of the player at the current moment.</param>
+        public GhostFrame(Transform t) {
             position = t.position;
             rotation = t.rotation;
-            moveSpeed = speed;
-            isSprinting = sprinting;
-            walksBackwards = backwards;
         }
     }
 }

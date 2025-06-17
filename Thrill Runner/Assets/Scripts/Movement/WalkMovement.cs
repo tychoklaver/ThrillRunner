@@ -25,7 +25,6 @@ namespace ThrillRunner.Movement
 
         void Awake()
         {
-            // Cache required components.
             controller = GetComponent<CharacterController>();
             cam = Camera.main.transform;
         }
@@ -38,15 +37,12 @@ namespace ThrillRunner.Movement
         /// <returns>Normalized direction of movement, used for animation and rotation.</returns>
         public Vector3 Move(Vector2 input, bool isSprinting)
         {
-            // Get forward vector from camera, flattened on XZ plane.
             Vector3 forward = new Vector3(cam.forward.x, 0f, cam.forward.z).normalized;
             Vector3 moveDirection = forward * input.y;
             
-            // Calculate speed based on sprint state.
             float speed = isSprinting ? walkSpeed * sprintMultiplier : walkSpeed;
             Vector3 horizontalMove = moveDirection.normalized * speed;
 
-            // Apply grounded/jump logic.
             if (controller.isGrounded) {
                 verticalVelocity = GROUND_STICK_FORCE; // Prevent character from hovering above ground.
 
@@ -56,12 +52,9 @@ namespace ThrillRunner.Movement
             else 
                 verticalVelocity += GRAVITY * Time.deltaTime; // Apply gravity over time.
 
-            // Combine horizontal and vertical movement into one vector.
             Vector3 moveVector = (horizontalMove + Vector3.up * verticalVelocity) * Time.deltaTime;
-            // Apply movement using CharacterController.
             controller.Move(moveVector);
 
-            // Return direction (used by MovementController for animation/rotation).
             return moveDirection.normalized;
         }
     }

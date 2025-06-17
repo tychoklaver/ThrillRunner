@@ -12,16 +12,13 @@ namespace ThrillRunner.Movement
         private MovementController controller; // Reference to active MovementController.
 
         void Start() {
-            // Cache reference to MovementController on the same GameObject
             controller = GetComponent<MovementController>();
         }
 
         void Update() {
-            // Press Q to switch to DashMovement
             if (Input.GetKeyDown(KeyCode.Q))
                 controller.SwitchMovement<DashMovement>();
 
-            // Press E to switch to WalkMovement
             if (Input.GetKeyDown(KeyCode.E))
                 controller.SwitchMovement<WalkMovement>();
         }
