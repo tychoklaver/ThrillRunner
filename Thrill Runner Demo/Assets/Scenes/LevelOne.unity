@@ -978,18 +978,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f3498ec7691956c4484e760e653d3514, type: 3}
   m_PrefabInstance: {fileID: 1902264294}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &293505020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 293505019}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bee4421be08f07541b4ee0fe8a4d61b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &293505021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1003,7 +991,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashDistance: 10
-  dashCooldown: 0.1
+  dashCooldown: 1
   dashDuration: 0.2
 --- !u!114 &293505022
 MonoBehaviour:
@@ -1020,21 +1008,7 @@ MonoBehaviour:
   walkSpeed: 2
   sprintMultiplier: 4
   jumpHeight: 1.5
---- !u!114 &293505023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 293505019}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1510ef80a5d91de4ea47caa496d2dc89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultMovementLogic: {fileID: 293505022}
-  rotationSpeed: 100
-  cameraTransform: {fileID: 629757517}
+  rotationSpeed: 120
 --- !u!143 &293505024
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1140,6 +1114,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5307383ba164faf439c5ade52fb1798f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &293505033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293505019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c72d12a5453d37c4ea5c8aeb8a39ac86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkMovement: {fileID: 293505022}
+  dashMovement: {fileID: 293505021}
 --- !u!1 &408889320
 GameObject:
   m_ObjectHideFlags: 0
@@ -6888,8 +6876,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 84.83234, y: 11.773657, z: 103.618385}
-  m_Center: {x: -7.1319275, y: 0.18879223, z: 32.385853}
+  m_Size: {x: 342.19318, y: 11.773657, z: 358.58466}
+  m_Center: {x: -4.196106, y: 0.18879223, z: 27.732567}
 --- !u!4 &1798675736
 Transform:
   m_ObjectHideFlags: 0
@@ -7262,16 +7250,13 @@ PrefabInstance:
       addedObject: {fileID: 293505030}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f3498ec7691956c4484e760e653d3514, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 293505023}
+      addedObject: {fileID: 293505033}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f3498ec7691956c4484e760e653d3514, type: 3}
       insertIndex: -1
       addedObject: {fileID: 293505022}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f3498ec7691956c4484e760e653d3514, type: 3}
       insertIndex: -1
       addedObject: {fileID: 293505021}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f3498ec7691956c4484e760e653d3514, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 293505020}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f3498ec7691956c4484e760e653d3514, type: 3}
       insertIndex: -1
       addedObject: {fileID: 293505032}
