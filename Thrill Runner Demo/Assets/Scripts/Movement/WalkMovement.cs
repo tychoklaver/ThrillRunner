@@ -13,6 +13,7 @@ namespace ThrillRunner.Movement
         [SerializeField] private float walkSpeed = 2f; // Base walking speed.
         [SerializeField] private float sprintMultiplier = 10f; // Sprint speed multiplier.
         [SerializeField] private float jumpHeight = 1.5f; // Maximum jump height.
+        [SerializeField] private float rotationSpeed = 120f;
 
         // ---Internal References---
         private CharacterController controller; 
@@ -22,6 +23,7 @@ namespace ThrillRunner.Movement
         private const float GRAVITY = -9.81f; // Constant gravity value (m/s²)
         private const float GROUND_STICK_FORCE = -2f; // Small force to keep player grounded.
         private float verticalVelocity; // Tracks vertical velocity for jump/gravity.
+        private bool isGrounded;
 
         void Awake()
         {
@@ -43,19 +45,33 @@ namespace ThrillRunner.Movement
             float speed = isSprinting ? walkSpeed * sprintMultiplier : walkSpeed;
             Vector3 horizontalMove = moveDirection.normalized * speed;
 
-            if (controller.isGrounded) {
-                verticalVelocity = GROUND_STICK_FORCE; // Prevent character from hovering above ground.
+            isGrounded = controller.isGrounded;
 
-                if (Input.GetKeyDown(KeyCode.Space)) // Jump if on ground and space pressed.
-                    verticalVelocity = Mathf.Sqrt(-2f * jumpHeight * GRAVITY);
-            }
-            else 
-                verticalVelocity += GRAVITY * Time.deltaTime; // Apply gravity over time.
+            ApplyGravity();
 
             Vector3 moveVector = (horizontalMove + Vector3.up * verticalVelocity) * Time.deltaTime;
             controller.Move(moveVector);
 
             return moveDirection.normalized;
+        }
+
+        public void Jump() {
+            Debug.Log("JumP!");
+            if (isGrounded) {
+                verticalVelocity = Mathf.Sqrt(-2f * jumpHeight * GRAVITY);
+            }
+        }
+
+        void ApplyGravity() {
+            if (controller.isGrounded && verticalVelocity < 0)
+                verticalVelocity = GROUND_STICK_FORCE;
+            else 
+                verticalVelocity += GRAVITY * Time.deltaTime;
+        }
+
+        public void Rotate(float horizontalInput, float rotationSpeed) {
+            float rotationAmount = horizontalInput * rotationSpeed * Time.deltaTime;
+            transform.Rotate(0f, rotationAmount, 0f, Space.World);
         }
     }
 }

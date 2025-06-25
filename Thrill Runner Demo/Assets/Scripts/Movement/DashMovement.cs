@@ -38,7 +38,7 @@ namespace ThrillRunner.Movement
         public Vector3 Move(Vector2 input, bool isSprinting) {
             cooldownTimer -= Time.deltaTime;
 
-            if (!isDashing && Input.GetKeyDown(KeyCode.Space) && cooldownTimer <= 0f) 
+            if (!isDashing && cooldownTimer <= 0f) 
                 StartDash();
 
             return isDashing ? ContinueDash() : Vector3.zero;
@@ -68,7 +68,10 @@ namespace ThrillRunner.Movement
             if (dashTimer <= 0f)
                 isDashing = false;
 
-            return dashDirection;
+            return isDashing ? dashDirection : Vector3.zero;
         }
+
+        public void Jump() { }
+        public void Rotate(float horizontalInput, float rotationSpeed) { }
     }
 }

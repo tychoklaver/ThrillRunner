@@ -17,5 +17,7 @@ namespace ThrillRunner.Movement
         /// <param name="isSprinting">Whether sprint input is currently active.</param>
         /// <returns>A Vector3 representing the intended movement for this frame.</returns>
         Vector3 Move(Vector2 input, bool isSprinting);
+        void Jump();
+        void Rotate(float horizontalInput, float rotationSpeed);
     }
 }
